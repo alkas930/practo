@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:practo/home_screen.dart';
+
+import 'package:practo/mobile.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -12,10 +13,10 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 3), () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => MobileScreen()),
       );
     });
     return Scaffold(

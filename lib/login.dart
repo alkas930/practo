@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:js_interop';
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import "package:http/http.dart" as http;
+import 'package:practo/otp_screen.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -42,13 +44,24 @@ class _LoginState extends State<Login> {
               ),
               headers: {"Content-Type": "application/json"});
       print(response.body);
-      var data = jsonDecode(response.toString());
+      var data = jsonDecode(response.body);
 
       final String msg = data["msg"];
 
       if (data['status'] == true) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(msg)));
+        AnimatedSnackBar.material(msg,
+                type: AnimatedSnackBarType.success,
+                duration: Duration(seconds: 3))
+            .show(
+          context,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OtpScreen(
+                    phoneNumber: phone,
+                  )),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Something went wrong')));
@@ -138,6 +151,21 @@ class _LoginState extends State<Login> {
                       fontSize: 18,
                     ),
                   ),
+                  // RichText(
+                  //     text: const TextSpan(children: [
+                  //   TextSpan(
+                  //     text: "By continuing, you agree to our ",
+                  //     style: TextStyle(color: Colors.grey, fontSize: 18),
+                  //   ),
+                  //   TextSpan(
+                  //     text: "Terms & Conditions",
+                  //     style: TextStyle(
+                  //       decoration: TextDecoration.underline,
+                  //       color: Colors.blue,
+                  //       fontSize: 18,
+                  //     ),
+                  //   )
+                  // ])),
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [],

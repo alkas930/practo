@@ -1,91 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:practo/home.dart';
 
-import 'package:practo/mobile.dart';
+import 'package:practo/login.dart'; // Import the login screen
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({super.key});
+class Splashscreen extends StatefulWidget {
+  const Splashscreen({Key? key});
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<Splashscreen> createState() => _SplashscreenState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashscreenState extends State<Splashscreen> {
+  bool isLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoggedInStatus();
+  }
+
+  void _checkLoggedInStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isLoggedIn = prefs.getBool('isloggedIn') ?? false;
+    });
+
+    // Navigate after a delay
+    Future.delayed(Duration(seconds: 3), () {
+      if (isLoggedIn) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Login()), // Navigate to login screen
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MobileScreen()),
-      );
-    });
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-            height: size.height,
-            width: size.width,
-            decoration: BoxDecoration(color: Color(0xff28318c)),
-            child: Column(
+      body: Container(
+        height: size.height,
+        width: size.width,
+        decoration: BoxDecoration(
+          color: const Color(0xff28318c),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.circle,
-                          color: Color(0xff24bbf2),
-                          size: 20,
-                        ),
-                        Text(
-                          "practo",
-                          style: TextStyle(
-                              fontSize: 50,
-                              color: Color(0xfffffdff),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          Icons.circle,
-                          color: Color(0xff24bbf2),
-                          size: 20,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      "india's top doctors to guide you \n      to better health every day",
-                      style: TextStyle(
-                        // fontSize: 50,
-                        color: Color(0xfffffdff),
-                        // fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    SizedBox(
-                      height: 400,
-                    ),
-                    Image.asset(
-                      "assets/2701-removebg-preview.png",
-                      scale: 5,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "ISO 27001 certified online \n      healthcare platform",
-                      style: TextStyle(
-                        // fontSize: 50,
-                        color: Color(0xfffffdff),
-                        // fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ],
+                Icon(Icons.circle, color: Colors.blueAccent),
+                Text(
+                  "practo",
+                  style: TextStyle(fontSize: 40, color: Colors.white),
                 ),
+                Icon(Icons.circle, color: Colors.blueAccent),
               ],
-            )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                " India's top doctor to guide you \n to better health every day",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 150),
+              child: Column(
+                children: [
+                  Image.asset(
+                    "assets/2701-removebg-preview.png",
+                    scale: 7,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "ISO 27001 certified online \n healthcare platform",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

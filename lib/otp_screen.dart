@@ -5,11 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
+
 import 'package:pinput/pinput.dart';
 import 'package:practo/home.dart';
+
 import 'package:practo/login.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -35,6 +37,11 @@ class _OtpScreenState extends State<OtpScreen> {
     otpController.addListener(_updateButtonState);
   }
 
+  savedata(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isloggedIn', value);
+  }
+
 //function for verify
   verifyOtp() async {
     try {
@@ -55,6 +62,8 @@ class _OtpScreenState extends State<OtpScreen> {
       final String msg = data["msg"];
 
       if (data["status"] = true) {
+        final isloggedIn = await savedata(true);
+
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => HomeScreen()),

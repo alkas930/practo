@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:practo/home.dart';
 import 'package:practo/otp_screen.dart';
 import 'package:practo/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,9 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: ThemeData(fontFamily: GoogleFonts.lato().fontFamily),
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: Splashscreen());
+        home: HomeScreen());
   }
 }
 

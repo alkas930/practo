@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:practo/home.dart';
 
 import 'package:practo/login.dart'; // Import the login screen
+import 'package:practo/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _SplashscreenState extends State<Splashscreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => Login()), // Navigate to login screen
+              builder: (context) => MobileScreen()), // Navigate to login screen
         );
       }
     });

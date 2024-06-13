@@ -39,6 +39,8 @@ dependencies:
   pinput: ^4.0.0
   animated_snack_bar: ^0.4.0
   shared_preferences: ^2.2.3
+  dropdown_button2: ^2.3.9
+  google_fonts: ^6.2.1
   
 
 dev_dependencies:

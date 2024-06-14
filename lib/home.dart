@@ -80,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Icon(
                       Icons.location_on,
+                      size: 17,
                       color: Color.fromARGB(255, 72, 33, 243),
                     ),
                     // Text(
@@ -91,7 +92,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     DropdownButton<String>(
                       borderRadius: BorderRadius.circular(5),
                       dropdownColor: const Color.fromARGB(255, 247, 245, 245),
+                      isDense: true,
                       style: TextStyle(color: Colors.black),
+                      iconSize: 27,
+                      alignment: Alignment.center,
                       focusColor: const Color.fromARGB(255, 247, 246, 246),
                       value: _selectedOption,
                       onChanged: (String? newValue) {

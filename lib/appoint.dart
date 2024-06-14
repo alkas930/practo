@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practo/contact_hospital.dart';
 
 class Appoint extends StatefulWidget {
   const Appoint({super.key});
@@ -218,9 +219,9 @@ class _AppointState extends State<Appoint> {
                                 CircleAvatar(
                                     maxRadius: 40,
                                     backgroundImage: AssetImage(images[index])),
-                                SizedBox(
-                                  width: 15,
-                                ),
+                                // SizedBox(
+                                //   width: 15,
+                                // ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -343,21 +344,36 @@ class _AppointState extends State<Appoint> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  child: Center(
-                                    child: Text(
-                                      "Contact Hospital",
-                                      style: TextStyle(
-                                          color: Color(0xff1a9fda),
-                                          fontWeight: FontWeight.bold),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        (MaterialPageRoute(
+                                            builder: (context) =>
+                                                ContactHospital(
+                                                  des: des[index],
+                                                  images: images[index],
+                                                  like: likes[index],
+                                                  name: name[index],
+                                                  story: story[index],
+                                                ))));
+                                  },
+                                  child: Container(
+                                    child: Center(
+                                      child: Text(
+                                        "Contact Hospital",
+                                        style: TextStyle(
+                                            color: Color(0xff1a9fda),
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                  ),
-                                  height: 30,
-                                  width: size.width / 2.2,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Color(0xff1a9fda), width: 1.5),
-                                    borderRadius: BorderRadius.circular(5),
+                                    height: 30,
+                                    width: size.width / 2.2,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Color(0xff1a9fda), width: 1.5),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
                                   ),
                                 ),
                                 Container(
